@@ -1,0 +1,40 @@
+/* The main body of the website */
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #F2F0EF;
+}
+
+/* The nav bar */
+nav{
+    background-image: linear-gradient(left,#FF9A28, #FF6AA0, #FF491C, #F9009F, #C800D6, #8D03F2, #2D40FD,	#668EFF) ;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    text-align: center;
+    z-index: 1;
+}
+
+/* The links in the nav bar */
+nav a:link{
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+/* The style of the nav bar when user hovers over the links */
+nav a:hover{
+    background-color: #fefee3;
+    color: #4A4A4A;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+/* The heading of the website */
+h1{
+    display: inline-block;
+    margin: 0;
+    color: black;
+}
