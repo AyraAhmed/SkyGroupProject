@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-
+import os 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -58,7 +58,7 @@ ROOT_URLCONF = 'skyHC.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],  # Add this line to include a global templates folder
+        'DIRS': [BASE_DIR / 'templates'],   # Add this line to include a global templates folder
         'APP_DIRS': True,  # Enable app-level templates
         'OPTIONS': {
             'context_processors': [

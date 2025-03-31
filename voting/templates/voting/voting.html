@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Voting </title>
+    </head>
+    <body>
+        <h1>Welcome to Voting Page</h1>
+        <h2>This is the full voting page</h2>
+    </body>
+        <h2>Vote for your favorite option:</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="radio" name="option" value="Option 1"> Option 1<br>
+            <input type="radio" name="option" value="Option 2"> Option 2<br>
+            <input type="radio" name="option" value="Option 3"> Option 3<br>
+            <input type="submit" value="Vote">
+        </form>
