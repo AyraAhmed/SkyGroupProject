@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senior Team view</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            background-color: #f5f5f5;
+
+        }
+
+        /* .container {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+            padding: 2% 2%;
+            gap: 2%;
+        } */
+
+        .container {
+            display: flex;
+            width: 100%;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #1B609F;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+            box-sizing: border-box;
+            border-radius: 20px;
+        }
+
+        .sidebar img {
+            width: 80px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .sidebar h3 {
+            margin-bottom: 20px;
+        }
+
+        .nav-links {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .nav-links a {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            color: white;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .nav-links a.active {
+            border: 2px solid #78A446;
+            background-color: #78A446;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 19px;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(42, 88, 214, 0.2);
+        }
+
+        .logout-btn {
+            background-color: #78A446;
+            color: white;
+            width: 60%;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: auto;
+            font-weight: bold;
+            font-size: 19px;
+            border: none;
+            transition: all 0.1s ease;
+        }
+
+        .logout-btn:active {
+            transform: scale(0.95);
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .logout-btn:hover {
+            background-color: #6a9339;
+        }
+
+        .main-content {
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .main-content {
+            width: calc(100% - 280px);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            height: 100%;
+            padding-top: 20px;
+            margin: 0 auto;
+        }
+
+
+        .header {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 30px;
+        }
+
+        .userRoleBox {
+            background: #FFFFFF;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 22px;
+            padding: 10px 20px;
+            width: fit-content;
+        }
+
+        .userRole {
+            color: #78A446;
+            font-weight: 700;
+            font-size: 25px;
+        }
+
+        .tableBox {
+            position: center;
+            background: #FFFFFF;
+            border: 1px solid #787878;
+            border-radius: 15px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .main-content {
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            height: 100%;
+        }
+
+        .tableBox {
+            background: #FFFFFF;
+            border: 1px solid #787878;
+            border-radius: 15px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            flex-grow: 1;
+        }
+
+        .table-row {
+            display: flex;
+            padding: 20px;
+            border-bottom: 1px solid #6C4523;
+            flex: 1;
+        }
+
+        .table-header {
+            display: flex;
+            padding: 20px;
+            border-bottom: 1px solid #787878;
+            background-color: #f8f8f8;
+        }
+
+        .table-header div {
+            font-weight: 600;
+            font-size: 18px;
+            color: #000000;
+        }
+
+        .teamName {
+            flex: 2;
+        }
+
+        .teamLeader {
+            flex: 2;
+        }
+
+        .teamMembers {
+            flex: 1;
+        }
+
+        .table-row {
+            display: flex;
+            padding: 20px;
+            border-bottom: 1px solid #6C4523;
+            height: calc((100% - 60px) / 5);
+        }
+
+        .table-row div {
+            font-size: 16px;
+        }
+
+        .tableBox {
+            height: calc(100% - 80px);
+            height: auto;
+            max-height: 90%;
+        }
+
+        .logout-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 10px;
+            font-size: 20px;
+            font-weight: 600;
+            z-index: 1000;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                padding: 10px;
+            }
+
+            .sidebar {
+                width: 100%;
+                max-width: 100%;
+                margin: 0 0 20px 0;
+            }
+
+            .main-content {
+                width: 100%;
+            }
+
+            .tableBox {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <img src="Navicon.png" alt="Navicon">
+            <a href="editProfile.html" style="color: white;text-decoration: none;">Edit Profile</a>
+            <br><br><br>
+            <div class="nav-links">
+                <a href="departmentLeaderHome.html">Home</a>
+                <a href="#">Profile</a>
+                <br>
+                <br>
+                <a href="#" class="active">View Team Details</a>
+                <a href="#">View Both Summaries</a>
+            </div>
+            <button class="logout-btn" onclick="logoutUser()">Log Out</button>
+        </div>
+
+        <div class="main-content">
+            <div class="header">
+                <div class="#">
+                    <div class="userRole"></div>
+                </div>
+            </div>
+
+            <div class="tableBox">
+                <div class="table-header">
+                    <div class="teamName">Team Name</div>
+                    <div class="teamLeader">Team Leader</div>
+                    <div class="teamMembers">Members</div>
+                </div>
+
+                <div class="table-row">
+                    <div class="teamName">Team .....</div>
+                    <div class="teamLeader">Name</div>
+                    <div class="teamMembers">Name</div>
+                </div>
+
+                <div class="table-row">
+                    <div class="teamName">Team .....</div>
+                    <div class="teamLeader">Name</div>
+                    <div class="teamMembers">Name</div>
+                </div>
+
+                <div class="table-row">
+                    <div class="teamName">Team ......</div>
+                    <div class="teamLeader">Name</div>
+                    <div class="teamMembers">Name</div>
+                </div>
+
+                <div class="table-row">
+                    <div class="teamName">Team .....</div>
+                    <div class="teamLeader">Name</div>
+                    <div class="teamMembers">Name</div>
+                </div>
+
+                <div class="table-row">
+                    <div class="teamName">Team .....</div>
+                    <div class="teamLeader">Name</div>
+                    <div class="teamMembers">Name</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="logout-message" id="logoutMessage">Logging out...</div>
+
+    <script>
+        function logoutUser() {
+            const logoutMessage = document.getElementById("logoutMessage");
+            logoutMessage.style.display = "block";
+            setTimeout(function () {
+                logoutMessage.style.display = "none";
+                alert("You have been logged out successfully!");
+            }, 2000);
+        }
+    </script>
+</body>
+
+</html>
