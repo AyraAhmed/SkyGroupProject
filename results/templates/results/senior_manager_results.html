@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senior Overview</title>
+    <link rel="stylesheet" href="style.css">
+
+
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+            background-color: #f5f5f5;
+            display: flex;
+            overflow-x: hidden;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            gap: 20px;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #1B609F;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+            box-sizing: border-box;
+            border-radius: 20px;
+        }
+
+        .sidebar img {
+            width: 80px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .sidebar h3 {
+            margin-bottom: 20px;
+        }
+
+        .nav-links {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .nav-links a {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            color: white;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .nav-links a.active {
+            border: 2px solid #78A446;
+            background-color: #78A446;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 19px;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(42, 88, 214, 0.2);
+        }
+
+        .logout-btn {
+            background-color: #78A446;
+            color: white;
+            width: 60%;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: auto;
+            font-weight: bold;
+            font-size: 19px;
+            border: none;
+        }
+
+        .logout-btn {
+            background-color: #78A446;
+            color: white;
+            width: 60%;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: auto;
+            font-weight: bold;
+            font-size: 19px;
+            border: none;
+            transition: all 0.1s ease;
+        }
+
+        .logout-btn:active {
+            transform: scale(0.95);
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .logout-btn:hover {
+            background-color: #6a9339;
+        }
+
+        .main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .title {
+            background: #FFFFFF;
+            border: 3px solid #0B2A45;
+            border-radius: 15px;
+            padding: 15px 20px;
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .title h1 {
+            font-size: clamp(18px, 4vw, 36px);
+            font-weight: 400;
+        }
+
+        .userRoleBox {
+            background: #FFFFFF;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 22px;
+            padding: 15px 30px;
+            cursor: pointer;
+        }
+
+        .userRole {
+            font-weight: 700;
+            font-size: clamp(16px, 3vw, 28px);
+            color: #78A446;
+        }
+
+        .userRoleBox:active {
+            transform: scale(0.95);
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .userRoleBox:hover {
+            background: #f0f0f0;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            min-width: 320px;
+        }
+
+        .filter-controls {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 10px;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .dropdown-container {
+            position: relative;
+            z-index: 10;
+            width: 32%;
+        }
+
+        .dropdown-button {
+            background: #1B609F;
+            border-radius: 15px;
+            padding: 10px;
+            color: #FFFFFF;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            border: none;
+            display: block;
+            text-decoration: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .dropdown-button:hover {
+            background: #1E3A70;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background: #1B609F;
+            border-radius: 15px;
+            overflow: hidden;
+            list-style: none;
+            width: 100%;
+            border: 1px solid #164c86;
+            z-index: 100;
+        }
+
+        .dropdown-menu li a {
+            display: block;
+            padding: 10px;
+            color: #FFF;
+            text-decoration: none;
+            font-size: 14px;
+            text-align: left;
+            transition: background 0.3s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .dropdown-menu li a:hover {
+            background-color: #1E3A70;
+        }
+
+        .dropdown-visible {
+            display: block !important;
+        }
+
+        .graph-box {
+            background: #FFFFFF;
+            border: 1px solid #000000;
+            border-radius: 10px;
+            height: 60vh;
+            min-height: 455px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .graph-placeholder {
+            color: #999;
+            font-size: 18px;
+        }
+
+        .report-title {
+            font-weight: 700;
+            font-size: 24px;
+            color: #000000;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 15px;
+        }
+
+        .logout-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 10px;
+            font-size: 20px;
+            font-weight: 600;
+            z-index: 1000;
+            display: none;
+        }
+
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 95%;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .filter-controls {
+                flex-wrap: wrap;
+            }
+
+            .dropdown-container {
+                width: 48%;
+                margin-bottom: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .dropdown-container {
+                width: 100%;
+            }
+
+            .graph-box {
+                height: 50vh;
+            }
+        }
+    </style>
+</head>
+
+
+
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <img src="Navicon.png" alt="Navicon">
+            <a href="editProfile.html" style="color: white;text-decoration: none;">Edit Profile</a>
+            <br><br><br>
+            <div class="nav-links">
+                <a href="departmentLeaderHome.html">Home</a>
+                <a href="#">Profile</a>
+                <br>
+                <br>
+                <a href="#" class="active">View Team Details</a>
+                <a href="#">View Both Summaries</a>
+            </div>
+            <button class="logout-btn" onclick="logoutUser()">Log Out</button>
+        </div>
+
+        <div class="main-container">
+            <div class="header">
+                <div class="title">
+                    <h1>View Team Details</h1>
+                </div>
+                <div class="userRoleBox" onclick="handleViewGraph()">
+                    <div class="userRole">View Graph</div>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <div class="filter-controls">
+                    <div class="dropdown-container">
+                        <a href="#" class="dropdown-button" id="teamButton">Select Team</a>
+                        <ul class="dropdown-menu" id="teamDropdown">
+                            <li><a href="#" onclick="selectTeam('Team Alpha')">Team Alpha</a></li>
+                            <li><a href="#" onclick="selectTeam('Team Beta')">Team Beta</a></li>
+                            <li><a href="#" onclick="selectTeam('Team Gamma')">Team Gamma</a></li>
+                            <li><a href="#" onclick="selectTeam('Team Delta')">Team Delta</a></li>
+                            <li><a href="#" onclick="selectTeam('Team Epsilon')">Team Epsilon</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="dropdown-container">
+                        <a href="#" class="dropdown-button" id="departmentButton">Select Department</a>
+                        <ul class="dropdown-menu" id="departmentDropdown">
+                            <li><a href="#" onclick="selectDepartment('Department 1')">Department 1</a></li>
+                            <li><a href="#" onclick="selectDepartment('Department 2')">Department 2</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="dropdown-container">
+                        <a href="#" class="dropdown-button" id="progressButton">Progress Over Time</a>
+                        <ul class="dropdown-menu" id="progressDropdown">
+                            <li><a href="#" onclick="selectProgress('3 months')">Progress over 3 months</a></li>
+                            <li><a href="#" onclick="selectProgress('6 months')">Progress over 6 months</a></li>
+                            <li><a href="#" onclick="selectProgress('9 months')">Progress over 9 months</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="graph-box" id="graphBox">
+                    <!-- <div class="graph-placeholder" id="graphPlaceholder"> -->
+                    <!-- Select all options and click 'View Graph' to display graph -->
+                </div>
+                <canvas id="teamChart" style="display: none; width: 100%; height: 100%;"></canvas>
+            </div>
+
+            <div class="report-title">Progress Report</div>
+        </div>
+    </div>
+    </div>
+
+    <div class="logout-message" id="logoutMessage">Logging out...</div>
+
+    <script>
+
+        let selectedTeam = null;
+        let selectedDepartment = null;
+        let selectedProgress = null;
+        let chartInstance = null;
+
+        function toggleDropdown(dropdownId) {
+            const allDropdowns = document.querySelectorAll('.dropdown-menu');
+            allDropdowns.forEach(dropdown => {
+                if (dropdown.id !== dropdownId) {
+                    dropdown.classList.remove('dropdown-visible');
+                }
+            });
+            document.getElementById(dropdownId).classList.toggle('dropdown-visible');
+        }
+
+        document.getElementById('teamButton').addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleDropdown('teamDropdown');
+        });
+
+        document.getElementById('departmentButton').addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleDropdown('departmentDropdown');
+        });
+
+        document.getElementById('progressButton').addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleDropdown('progressDropdown');
+        });
+
+        function selectTeam(teamName) {
+            selectedTeam = teamName;
+            document.getElementById('teamButton').innerText = teamName;
+            document.getElementById('teamDropdown').classList.remove('dropdown-visible');
+        }
+
+        function selectDepartment(deptName) {
+            selectedDepartment = deptName;
+            document.getElementById('departmentButton').innerText = deptName;
+            document.getElementById('departmentDropdown').classList.remove('dropdown-visible');
+        }
+
+        function selectProgress(progressPeriod) {
+            selectedProgress = progressPeriod;
+            document.getElementById('progressButton').innerText = progressPeriod;
+            document.getElementById('progressDropdown').classList.remove('dropdown-visible');
+        }
+
+        document.addEventListener('click', function (e) {
+            const dropdownButtons = document.querySelectorAll('.dropdown-button');
+            const dropdownMenus = document.querySelectorAll('.dropdown-menu');
+            let clickedInsideDropdown = false;
+            dropdownButtons.forEach(button => {
+                if (button.contains(e.target)) {
+                    clickedInsideDropdown = true;
+                }
+            });
+            dropdownMenus.forEach(menu => {
+                if (menu.contains(e.target)) {
+                    clickedInsideDropdown = true;
+                }
+            });
+            if (!clickedInsideDropdown) {
+                dropdownMenus.forEach(menu => {
+                    menu.classList.remove('dropdown-visible');
+                });
+            }
+        });
+
+        function logoutUser() {
+            const logoutMessage = document.getElementById("logoutMessage");
+            logoutMessage.style.display = "block";
+            setTimeout(function () {
+                logoutMessage.style.display = "none";
+                alert("You have been logged out successfully!");
+            }, 2000);
+        }
+
+        function handleViewGraph() {
+            const defaultTeamText = "Select Team";
+            const defaultDepartmentText = "Select Department";
+            const defaultProgressText = "Progress Over Time";
+
+            if (!selectedTeam || !selectedDepartment || !selectedProgress) {
+                alert("Please select all dropdown options before viewing the graph.");
+                return;
+            }
+        }
+
+    </script>
+</body>
+
+</html>
