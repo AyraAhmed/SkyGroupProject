@@ -1,3 +1,4 @@
+
 <!-- voting.html -->
 
 <!DOCTYPE html>
@@ -36,7 +37,7 @@
                 // Append a separator for each file
                 $("#content").append('<hr>');
                 // Load each HTML file using jQuery's load method and the static URL
-                $("#content").load("{% static 'frontend/" + file + "' %}");
+                $("#content").load("{% static '" + file + "' %}");
             });
         });
     </script>
