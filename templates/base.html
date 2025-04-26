@@ -1,12 +1,25 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="{% static 'style.css' %}">
         <title> Home </title>
     </head>
     <body>
-        <h1>Welcome to Home Page</h1>
-        <h2>This is the full home page</h2>
+        <div class="sidenav">
+            <div class="nav-top">
+                <a href="#">Edit Profile</a>
+            </div>
+        
+            <div class="nav-middle">
+                <a href="#">Health Card</a>
+                <a href="#">View Summary</a>
+                <a href="#">View Progress</a>
+            </div>
+        
+            <div class="nav-bottom">
+                <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+            </div>
+        </div>
     </body>
-       
-
 </html>
