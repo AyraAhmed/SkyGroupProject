@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+       * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+       }
+
+      
+        body {
+          display: flex;
+          min-height: 100vh;
+          font-family: Arial, sans-serif;
+        }
+      
+        .sidebar {
+          width: 250px;
+          background-color: #1B609F;
+          padding: 20px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          color: white;
+          border-radius: 20px;
+        }
+      
+        .sidebar img {
+          width: 80px;
+          border-radius: 50%;
+          margin-bottom: 10px;
+        }
+      
+        .nav-links {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+      
+        .nav-links a {
+          width: 100%;
+          padding: 10px;
+          margin: 5px 0;
+          text-align: center;
+          text-decoration: none;
+          font-size: 16px;
+          color: white;
+          border-radius: 5px;
+        }
+      
+        .nav-links a.active {
+          border: 2px solid #78A446;
+          background-color: #78A446;
+          font-weight: bold;
+          font-size: 19px;
+        }
+      
+        .nav-links a:hover {
+          background-color: rgba(42, 88, 214, 0.2);
+        }
+      
+        .logout-btn {
+          background-color: #78A446;
+          color: white;
+          width: 60%;
+          padding: 10px;
+          border-radius: 8px;
+          cursor: pointer;
+          margin-top: auto;
+          font-weight: bold;
+          font-size: 19px;
+        }
+      
+        .main-content {
+          flex: 1;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      
+        h2 {
+          font-size: 2rem;
+          color: #0d0e0e;
+        }
+      </style>
+      </head>
+      <body>
+      <div class="sidebar">
+        <img src="Navicon.jpeg" alt="Navicon" />
+        <a href="editProfile.html" style="color: white; text-decoration: none;">Edit Profile</a>
+        <br /><br /><br />
+        <div class="nav-links">
+          <a href="#">Profile</a>
+          <a href="#" class="active">Health Card</a>
+          <a href="#">View Summary</a>
+          <a href="#">View Progress</a>
+        </div>
+        <button class="logout-btn">Log Out</button>
+      </div>
+      
+      <div class="main-content">
+        <h2>Thank You For Voting!</h2>
+      </div>
+      </body>
+      

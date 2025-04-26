@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'accounts',
     'healthcheck', 
     'voting', 
-    'results',  
+    'results',
+    
 ]
 
 MIDDLEWARE = [
