@@ -1,113 +1,62 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Voting Page</title>
-    <style>
-        /* Optional styles */
-        .page {
-            display: none;
-        }
-        .page.active {
-            display: block;
-        }
-        button {
-            padding: 10px 20px;
-            margin-top: 20px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title></title> <!-- No title -->
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
 </head>
 <body>
 
-    <h1>Voting Page</h1>
-    
-    <!-- Page Containers for each HTML -->
-    <div id="page1" class="page active">
-        <iframe src="/static/frontend/deliveryvalue.html" width="100%" height="500px"></iframe>
-    </div>
-    
-    <div id="page2" class="page">
-        <iframe src="/static/frontend/easytorelease.html" width="100%" height="500px"></iframe>
-    </div>
-    
-    <div id="page3" class="page">
-        <iframe src="/static/frontend/fun.html" width="100%" height="500px"></iframe>
-    </div>
-    
-    <div id="page4" class="page">
-        <iframe src="/static/frontend/healthofcodebase.html" width="100%" height="500px"></iframe>
-    </div>
-    
-    <div id="page5" class="page">
-        <iframe src="/static/frontend/learning.html" width="100%" height="500px"></iframe>
-    </div>
-    
-    <div id="page6" class="page">
-        <iframe src="/static/frontend/mission.html" width="100%" height="500px"></iframe>
-    </div>
-    
-    <div id="page7" class="page">
-        <iframe src="/static/frontend/pawnsorplayers.html" width="100%" height="500px"></iframe>
-    </div>
-    
-    <div id="page8" class="page">
-        <iframe src="/static/frontend/speed.html" width="100%" height="500px"></iframe>
-    </div>
-    
-    <div id="page9" class="page">
-        <iframe src="/static/frontend/suitableprocess.html" width="100%" height="500px"></iframe>
-    </div>
-    
-    <div id="page10" class="page">
-        <iframe src="/static/frontend/support.html" width="100%" height="500px"></iframe>
-    </div>
-    
-    <div id="page11" class="page">
-        <iframe src="/static/frontend/teamwork.html" width="100%" height="500px"></iframe>
-    </div>
-    
-    <div id="page12" class="page">
-        <iframe src="/static/frontend/thankyou.html" width="100%" height="500px"></iframe>
-    </div>
+<iframe id="pageFrame" src="/static/frontend.html/deliveryvalue.html"></iframe> <!-- Your first page -->
 
-    <!-- Previous and Next Buttons -->
-    <button id="prevBtn">Previous</button>
-    <button id="nextBtn">Next</button>
+<script>
+  const pages = [
+    "/static/frontend.html/deliveryvalue.html",
+    "/static/frontend.html/easytorelease.html",
+    "/static/frontend./healthofcodebase.html",
+    "/static/frontend.html/learning.html",
+    "/static/frontend.html/fun.html",
+    "/static/frontend.html/mision.html",
+    "/static/frontend.html/pawnsorplayers.html",
+    "/static/frontend.html/support.html",
+    "/static/frontend.html/suitableprocess.html",
+    "/static/frontend.html/speed.html",
+    "/static/frontend.html/teamwork.html",
+    "/static/frontend.html/worklife.html",
+    "/static/frontend.html/Thankyou.html",
+  ];
 
-    <script>
-        let currentPage = 1;
-        const totalPages = 12;
+  let currentPage = 0;
+  const frame = document.getElementById('pageFrame');
 
-        function showPage(page) {
-            // Hide all pages
-            for (let i = 1; i <= totalPages; i++) {
-                document.getElementById('page' + i).classList.remove('active');
-            }
-            // Show the current page
-            document.getElementById('page' + page).classList.add('active');
-        }
-
-        document.getElementById('nextBtn').addEventListener('click', function() {
-            currentPage++;
-            if (currentPage > totalPages) {
-                currentPage = 1;  // Loop back to the first page
-            }
-            showPage(currentPage);
-        });
-
-        document.getElementById('prevBtn').addEventListener('click', function() {
-            currentPage--;
-            if (currentPage < 1) {
-                currentPage = totalPages;  // Loop back to the last page
-            }
-            showPage(currentPage);
-        });
-
-        // Initial page load
-        showPage(currentPage);
-    </script>
+  window.addEventListener('message', function(event) {
+    if (event.data === 'next') {
+      if (currentPage < pages.length - 1) {
+        currentPage++;
+        frame.src = pages[currentPage];
+      }
+    }
+    if (event.data === 'previous') {
+      if (currentPage > 0) {
+        currentPage--;
+        frame.src = pages[currentPage];
+      }
+    }
+  });
+</script>
 
 </body>
 </html>
+
