@@ -18,7 +18,8 @@ def engineer_results_view(request):
 
 def department_leader_results_view(request):
     return render(request, 'results/department_leader_results.html')
-
+def senior_manager_results_view(request):
+    return render(request, 'results/senior_manager_results.html')
 
 
 # import plotly.graph_objs as go

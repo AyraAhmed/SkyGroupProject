@@ -25,6 +25,6 @@ urlpatterns = [
     path('results/', include('results.urls')),
     path('voting/', include('voting.urls')), 
     path('logout/', custom_logout_view, name='logout'),
-     path('api/accounts/', include('accounts.urls')),
+    path('api/accounts/', include('accounts.urls')),
 ]
 
