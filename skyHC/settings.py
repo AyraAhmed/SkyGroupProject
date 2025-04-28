@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'accounts',
     'healthcheck.apps.HealthcheckConfig',
     'voting', 
-    'results',  
+    'results',
+    
 ]
 
 MIDDLEWARE = [
