@@ -3,10 +3,12 @@ from django.dispatch import receiver
 from .models import VoteLog, ViewSummary
 from datetime import date
 
+# signal to create a ViewSummary automatically when a new VoteLog is saved
 @receiver(post_save, sender=VoteLog)
 def create_view_summary(sender, instance, created, **kwargs):
     if created:
-        print(" Signal fired: creating ViewSummary")  # For debugging
+        # debug message for confirming signal trigger 
+        print(" Signal fired: creating ViewSummary") 
         ViewSummary.objects.create(
             view_type=instance.vote_type,
             view_date=date.today(),

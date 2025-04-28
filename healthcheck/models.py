@@ -1,32 +1,32 @@
 from django.db import models
 from accounts.models import UserProfile
 
-# Create your models here.
+# Models for health check 
 class Team(models.Model):
     id = models.IntegerField(db_column='TeamID', primary_key=True)
     name = models.CharField(db_column='TeamName', max_length=50, unique=True)
     size = models.CharField(db_column='TeamSize', max_length=50)
 
     class Meta: 
-        managed = False 
+        managed = False # this model maps to an existing database table
         db_table = 'Team'
 
     def __str__(self):
-        return self.name
+        return self.name # display the team name in admin or shell 
 
 class Session(models.Model):
     session_date = models.DateField()
     session_time = models.TimeField()
 
     def __str__(self):
-        return f"{self.session_date} {self.session_time}"
+        return f"{self.session_date} {self.session_time}" # show date and time together 
 
 class HealthCard(models.Model):
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.name
+        return self.name # display the health card's name 
     
 class VoteLog(models.Model):
     STATUS_CHOICES = [
@@ -44,7 +44,7 @@ class VoteLog(models.Model):
 
 
     def __str__(self):
-        return f"{self.status} - {self.health_card.name}"
+        return f"{self.status} - {self.health_card.name}" # show status and health card name 
     
 
 class ViewSummary(models.Model):
@@ -55,5 +55,5 @@ class ViewSummary(models.Model):
     session = models.ForeignKey(Session, on_delete=models.CASCADE)
     
     def __str__(self):
-        return f"Summary on {self.view_date}"
+        return f"Summary on {self.view_date}" # display the view summary date 
     

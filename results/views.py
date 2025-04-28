@@ -7,7 +7,7 @@ from accounts.models import UserProfile
 from healthcheck.models import ViewSummary, VoteLog, HealthCard
 from datetime import timedelta, date
 
-# Create your views here.
+#html pages for department leader, engineer, senior manager and team leader
 def department_leader_results_view(request): 
     return render(request, 'results/department_leader_results.html')
 

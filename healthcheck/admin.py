@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Team, Session, HealthCard, VoteLog, ViewSummary
-# Register your models here.
+# add models to Django Admin
 admin.site.register(Team)
 admin.site.register(Session)
 admin.site.register(HealthCard)
