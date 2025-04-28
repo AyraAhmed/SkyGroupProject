@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include  # Use include to link to app URLs
+from accounts.views import custom_logout_view 
 
 urlpatterns = [
     path('admin/', admin.site.urls),            # Admin page
@@ -24,5 +25,7 @@ urlpatterns = [
     path('results/', include('results.urls')),
     path('voting/', include('voting.urls')), 
     
-]
+    path('logout/', custom_logout_view, name='logout'),
+    path('api/accounts/', include('accounts.urls')),
 
+]
