@@ -1,12 +1,15 @@
 from django.urls import path
 from . import views  # Import views from the current app
+#from .views import EditOwnProfileView # Import the API view for editing profile 
 
 urlpatterns = [
+    # URLs for home page, login page, registration page, user profile page
     path('', views.home_view, name='home'),
-    path('login/', views.login_view, name='login'),  # URL for the login page
-    # Add more URLs for other views here (e.g., register, profile)
+    path('login/', views.login_view, name='login'),  
     path('register/',views.register_view, name='register'),
     path('profile/', views.profile_view, name='profile'),
+    path('edit-profile', views.edit_profile_view, name='edit-profile'),
 
-    
+    # API endpoint for editing own profile 
+    #path('edit-profile/', EditOwnProfileView.as_view(), name='edit-profile'),
 ]
