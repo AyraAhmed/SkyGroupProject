@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,8 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'accounts',
-    'healthcheck', 
+    'healthcheck.apps.HealthcheckConfig',
     'voting', 
     'results',  
 ]
@@ -58,7 +60,7 @@ ROOT_URLCONF = 'skyHC.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],  # Add this line to include a global templates folder
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # Add this line to include a global templates folder
         'APP_DIRS': True,  # Enable app-level templates
         'OPTIONS': {
             'context_processors': [
@@ -119,6 +121,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
