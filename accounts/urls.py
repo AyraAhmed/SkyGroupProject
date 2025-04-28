@@ -7,4 +7,6 @@ urlpatterns = [
     # Add more URLs for other views here (e.g., register, profile)
     path('register/',views.register_view, name='register'),
     path('profile/', views.profile_view, name='profile'),
+
+    
 ]
