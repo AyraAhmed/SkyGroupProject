@@ -8,9 +8,10 @@ urlpatterns = [
     path('engineer_results/', views.engineer_results_view, name='engineer_results'),   
     path('team_leader_results/', views.team_leader_results_view, name='team_leader_results'),
     path('department_leader_results/',views.department_leader_results_view, name='department_leader_results'),
-    path('senior_manager_results/', views.senior_manager_results_view, name='senior_manager_results'),
     
     # API view to return JSON chart data 
     path('api/engineer_results/',views.engineer_results_data_view, name= 'engineer_results_data' ),
+    path('get-record-data/', views.get_record_data, name='get_record_data'),
+
 ]
 
