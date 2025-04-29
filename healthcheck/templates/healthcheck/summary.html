@@ -22,7 +22,7 @@
     left: 0;
     width: 250px;
     height: 100vh;
-    background-color: #1B609F;
+    background: linear-gradient(to bottom, #FF9A28, #FF6AA0, #FF491C, #F9009F, #C800D6, #8D03F2, #2D40FD, #668EFF);
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -62,8 +62,8 @@
   }
 
   .nav-links a.active {
-    border: 2px solid #78A446;
-    background-color: #78A446;
+    border: 2px solid #FF6AA0;
+    background-color: #FF6AA0;
     border-radius: 10px;
     font-weight: bold;
     font-size: 19px;
@@ -71,11 +71,12 @@
 
   .nav-links a:hover {
     background-color: rgba(42, 88, 214, 0.2);
+ 
   }
 
   .logout-btn {
-    background-color: #78A446;
-    color: white;
+    background-color:  #FF7F7F;
+    color: black;
     width: 60%;
     padding: 10px;
     border-radius: 8px;
@@ -85,6 +86,10 @@
     font-size: 19px;
     border: none;
   }
+  .logout-btn:hover {
+    background-color: whitesmoke;
+    color: black;
+}
 
   .main{
     margin-left: 270px;
@@ -94,7 +99,7 @@
   .title {
     font-size: 1.2em;
     padding: 10px;
-    width: 40%;
+    width: 90%;
     border: 2px solid #1e3a5f;
     border-radius: 8px;
     outline: none;
@@ -107,7 +112,7 @@
     top: 20px;
     right: 20px;
     background-color: white;
-    color: green;
+    color: #FF6AA0;
     font-weight: bold;
     padding: 6px 10px;
     border-radius: 9px;
@@ -123,7 +128,7 @@
   }
 
   .tag-btn {
-    background-color: #2f65b3;
+    background-color: #FF6AA0;
     color: white;
     border: none;
     padding: 8px 16px;
@@ -163,7 +168,7 @@
   
  
   .summary-header {
-    background-color: #2f65b3;
+    background-color: #FF6AA0;
     color: white;
     font-weight: bold;
     padding: 12px;
@@ -202,7 +207,7 @@
 </head>
 <body>
 <div class="sidebar">
-  <img src="Navicon.jpeg" alt="Navicon">
+  <img src="/static/Navicon.png" alt="Navicon">
   <a href="editProfile.html" style="color: white; text-decoration: none;">Edit Profile</a>
   <br><br><br>
   <div class="nav-links">
