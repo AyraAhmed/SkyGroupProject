@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login
 from django.views.decorators.csrf import csrf_exempt
 
-#from .serializers import UserProfileSerializer
+from .serializers import UserProfileSerializer
 
 # html pages for home, login, register and profile 
 def home_view(request):
@@ -128,10 +128,10 @@ def custom_logout_view(request):
     return redirect('login')  # Or wherever you want to send them after logout
 
 # # API view to retrieve and update the logged in user profile via DRF (Django REST framework)
-# class EditOwnProfileView(generics.RetrieveUpdateAPIView):
-#     serializer_class = UserProfileSerializer
-#     permission_classes = [permissions.IsAuthenticated]
+class EditOwnProfileView(generics.RetrieveUpdateAPIView):
+    serializer_class = UserProfileSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
-#     # limit access to own profile only 
-#     def get_object(self):
-#         return self.request.user.userprofile 
+     # limit access to own profile only 
+    def get_object(self):
+         return self.request.user.userprofile 

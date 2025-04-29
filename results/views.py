@@ -22,8 +22,6 @@ def senior_manager_results_view(request):
     return render(request, 'results/senior_manager_results.html')
 
 
-
-
 from django.http import JsonResponse
 from .models import Record
 from django.views.decorators.csrf import csrf_exempt
