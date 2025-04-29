@@ -1,108 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Your Account</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
-        
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            width: 357px; /* Increased by 2% */
-        }
-        .logo {
-            width: 100px;
-            margin-bottom: 10px;
-        }
-        .container h1 {
-            font-size: 24px;
-        }
-        .input-group {
-            display: flex;
-            align-items: center;
-            margin: 10px 0;
-            border-bottom: 2px solid #ccc;
-            padding-bottom: 5px;
-        }
-        .input-group input {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            outline: none;
-            background: transparent;
-        }
-        .input-group img {
-            width: 20px;
-            height: 20px;
-            margin-left: 10px;
-        }
-        .container button {
-            width: 100%;
-            padding: 10px;
-            background: black;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Your Account</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      width: 357px;
+    }
+
+    .logo {
+      width: 100px;
+      margin-bottom: 10px;
+    }
+
+    .container h1 {
+      font-size: 24px;
+    }
+
+    .input-group {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 5px;
+    }
+
+    .input-group input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      outline: none;
+      background: transparent;
+    }
+
+    .input-group img {
+      width: 20px;
+      height: 20px;
+      margin-left: 10px;
+    }
+
+    .container button {
+      width: 100%;
+      padding: 10px;
+      background: black;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <img src="image/logo.png" alt="Logo" class="logo">
-        <h1>Create Your Account</h1>
-        <div class="input-group">
-            <input type="text" id="name" placeholder="Name">
-            <img src="image/icon.png" alt="icon">
-        </div>
-        <div class="input-group">
-            <input type="password" id="password" placeholder="Password">
-            <img src="image/lock.png" alt="lock">
-        </div>
-        <div class="input-group">
-            <input type="email" id="email" placeholder="E-mail">
-            <img src="image/email.png" alt="email">
-        </div>
-        <div class="input-group">
-            <input type="text" id="username" placeholder="Username">
-            <img src="image/user.png" alt="user">
-        </div><br>
-        <button onclick="validateForm()">Sign Up</button>
-    </div>
-    <script>
-        function validateForm() {
-            let name = document.getElementById("name").value;
-            let password = document.getElementById("password").value;
-            let email = document.getElementById("email").value;
-            let username = document.getElementById("username").value;
-            
-            if (!name || !password || !email || !username) {
-                alert("Please fill out all required fields");
-                return;
-            }
-            if (!email.includes("@")) {
-                alert("Please enter a valid email format");
-                return;
-            }
-            if (password.length < 8) {
-                alert("Password must be at least 8 characters long");
-                return;
-            }
-        }
-    </script>
+  <div class="container">
+    <img src="{% static 'frontend.html/logo.png' %}" alt="Logo" class="logo">
+    <h1>Create Your Account</h1>
+
+    {% if error %}
+      <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <form method="post" action="{% url 'register' %}">
+      {% csrf_token %}
+
+      <div class="input-group">
+        <input type="text" name="first_name" placeholder="Name" required>
+        <img src="{% static 'frontend.html/icon.png' %}" alt="icon">
+      </div>
+
+      <div class="input-group">
+        <input type="text" name="username" placeholder="Username" required>
+        <img src="{% static 'frontend.html/user.png' %}" alt="user">
+      </div>
+
+      <div class="input-group">
+        <input type="email" name="email" placeholder="E-mail" required>
+        <img src="{% static 'frontend.html/email.png' %}" alt="email">
+      </div>
+
+      <div class="input-group">
+        <input type="password" name="password" placeholder="Password" required>
+        <img src="{% static 'frontend.html/lock.png' %}" alt="lock">
+      </div>
+
+      <div class="input-group">
+        <select name="role" required style="flex: 1; padding: 10px; border: none; outline: none; background: transparent;">
+          <option value="" disabled selected>Select Role</option>
+          <option value="DepartmentLeader">Department Leader</option>
+          <option value="SeniorManager">Senior Manager</option>
+          <option value="TeamLeader">Team Leader</option>
+          <option value="Engineer">Engineer</option>
+        </select>
+        <img src="{% static 'frontend.html/icon.png' %}" alt="icon">
+      </div>
+      
+      <br>
+      <button type="submit">Sign Up</button>
+    </form>
+  </div>
 </body>
 </html>

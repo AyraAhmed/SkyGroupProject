@@ -3,43 +3,126 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from rest_framework import generics, permissions
 from .models import UserProfile
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
+from django.contrib.auth import login
+from django.views.decorators.csrf import csrf_exempt
+
 #from .serializers import UserProfileSerializer
 
 # html pages for home, login, register and profile 
 def home_view(request):
     return render(request, 'accounts/home.html')
 
-def login_view(request): 
+# Login Page and Logic
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            return render(request, 'accounts/login.html', {'error': 'Invalid username or password.'})
+
     return render(request, 'accounts/login.html')
 
+@csrf_exempt
 def register_view(request):
-    return render(request, 'accounts/register.html')
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        email = request.POST.get('email')
+        first_name = request.POST.get('first_name')
+        role = request.POST.get('role')
 
-# view and update user profile (only for logged in users)
+        # Basic validation
+        if not username or not password or not email or not first_name:
+            return render(request, 'accounts/register.html', {
+                'error': 'All fields are required.'
+            })
+
+        # Check if user already exists
+        if User.objects.filter(username=username).exists():
+            return render(request, 'accounts/register.html', {
+                'error': 'Username already exists.'
+            })
+
+        # Create user
+        user = User.objects.create_user(
+            username=username,
+            password=password,
+            email=email,
+            first_name=first_name
+        )
+
+        UserProfile.objects.create(
+            user=user,
+            email=email,
+            first_name=first_name,
+            role=role
+        )
+
+        # Log in the user
+        login(request, user)
+
+        return redirect('home')
+
+    return render(request, 'accounts/register.html')
+# Change Password Page
+def changePassword_view(request):
+    return render(request, 'accounts/changePassword.html')
+
+# View and Update Profile
 @login_required
 def profile_view(request):
-    profile = request.user.userprofile # get the logged in user's profile 
+    profile = request.user.userprofile  # Get the logged-in user's profile
 
     if request.method == 'POST':
-        # update basic UserProfile fields 
+        # Update profile details
         profile.role = request.POST.get('role', profile.role)
         profile.phone_number = request.POST.get('phone_number', profile.phone_number)
         profile.save()
 
-        # update basic user fields 
+        # Update basic user details
         user = request.user
         user.first_name = request.POST.get('first_name', user.first_name)
         user.last_name = request.POST.get('last_name', user.last_name)
         user.email = request.POST.get('email', user.email)
         if request.POST.get('password'):
-            user.set_password(request.POST['password']) # securely set new password
+            user.set_password(request.POST['password'])  # securely update password
         user.save()
 
-        return redirect('profile') # redirect after saving changes 
+        return redirect('profile')
 
     return render(request, 'accounts/profile.html', {'profile': profile})
 
-# log out the current user 
+# Edit Profile Page (Separate view)
+@login_required
+def edit_profile_view(request):
+    profile = request.user.userprofile
+
+    if request.method == 'POST':
+        profile.role = request.POST.get('role', profile.role)
+        profile.phone_number = request.POST.get('phone_number', profile.phone_number)
+        profile.save()
+
+        user = request.user
+        user.first_name = request.POST.get('first_name', user.first_name)
+        user.last_name = request.POST.get('last_name', user.last_name)
+        user.email = request.POST.get('email', user.email)
+        if request.POST.get('password'):
+            user.set_password(request.POST['password'])
+        user.save()
+
+        return redirect('profile')
+
+    return render(request, 'accounts/editProfile.html', {'profile': profile})
+
+# Logout View
 def custom_logout_view(request):
     logout(request)
     return redirect('home')
@@ -52,27 +135,3 @@ def custom_logout_view(request):
 #     # limit access to own profile only 
 #     def get_object(self):
 #         return self.request.user.userprofile 
-
-# View to edit profile
-@login_required
-def edit_profile_view(request):
-    profile = request.user.userprofile  # Get the logged-in user's profile
-
-    if request.method == 'POST':
-        # Update profile details
-        profile.role = request.POST.get('role', profile.role)
-        profile.phone_number = request.POST.get('phone_number', profile.phone_number)
-        profile.save()
-
-        # Update user details like first name, last name, and email
-        user = request.user
-        user.first_name = request.POST.get('first_name', user.first_name)
-        user.last_name = request.POST.get('last_name', user.last_name)
-        user.email = request.POST.get('email', user.email)
-        if request.POST.get('password'):
-            user.set_password(request.POST['password'])  # Securely set the new password
-        user.save()
-
-        return redirect('profile')  # Redirect to the profile page after saving
-
-    return render(request, 'accounts/editProfile.html', {'profile': profile})
