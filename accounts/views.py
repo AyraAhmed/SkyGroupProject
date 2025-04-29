@@ -72,11 +72,12 @@ def register_view(request):
         return redirect('home')
 
     return render(request, 'accounts/register.html')
-# Change Password Page
-def changePassword_view(request):
-    return render(request, 'accounts/changePassword.html')
 
 # View and Update Profile
+def change_password_view(request):
+    return render(request, 'accounts/change-password.html')
+
+# view and update user profile (only for logged in users)
 @login_required
 def profile_view(request):
     profile = request.user.userprofile  # Get the logged-in user's profile
