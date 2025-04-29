@@ -9,6 +9,7 @@ urlpatterns = [
     path('register/',views.register_view, name='register'),
     path('profile/', views.profile_view, name='profile'),
     path('edit-profile', views.edit_profile_view, name='edit-profile'),
+    path('change-password', views.change_password_view, name="change-password"),
 
     # API endpoint for editing own profile 
     #path('edit-profile/', EditOwnProfileView.as_view(), name='edit-profile'),

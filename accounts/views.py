@@ -15,6 +15,9 @@ def login_view(request):
 def register_view(request):
     return render(request, 'accounts/register.html')
 
+def change_password_view(request):
+    return render(request, 'accounts/change-password.html')
+
 # view and update user profile (only for logged in users)
 @login_required
 def profile_view(request):
