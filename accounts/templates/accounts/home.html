@@ -210,7 +210,7 @@ body {
     <div class="container">
         <div class="sidebar">
             <img src="{% static 'frontend.html/icon.png' %}" alt="icon">
-            <a href="editProfile.html" style="color: white; text-decoration: none;">Edit Profile</a>
+            <a href="edit-profile" style="color: white; text-decoration: none;">Edit Profile</a>
             <br><br><br>
             <div class="nav-links">
                 <a href="#">Profile</a>
@@ -219,7 +219,7 @@ body {
             <a href="#">View Summary</a>
             <a href="#">View Progress</a>
             </div>
-            <button class="logout-btn" onclick="logoutUser()">Log Out</button>
+            <button class="logout-btn" onclick="window.location.href='{% url 'logout' %}'">Log Out</button>
         </div>
 
 

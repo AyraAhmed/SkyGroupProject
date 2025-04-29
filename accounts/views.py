@@ -121,12 +121,11 @@ def edit_profile_view(request):
 
         return redirect('profile')
 
-    return render(request, 'accounts/editProfile.html', {'profile': profile})
+    return render(request, 'accounts/edit-profile.html', {'profile': profile})
 
-# Logout View
 def custom_logout_view(request):
     logout(request)
-    return redirect('home')
+    return redirect('login')  # Or wherever you want to send them after logout
 
 # # API view to retrieve and update the logged in user profile via DRF (Django REST framework)
 class EditOwnProfileView(generics.RetrieveUpdateAPIView):
