@@ -16,4 +16,16 @@ class Record(models.Model):
 
 
 
+class Record(models.Model):
+    team = models.CharField(max_length=100)
+    department = models.CharField(max_length=100)
+    progress_month = models.IntegerField()  # e.g., 3, 6, 9
+    red_count = models.IntegerField(default=0)
+    yellow_count = models.IntegerField(default=0)
+    green_count = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.team} - {self.department} - {self.progress_month} months"
+
+
 

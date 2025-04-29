@@ -8,7 +8,6 @@ class Team(models.Model):
     size = models.CharField(db_column='TeamSize', max_length=50)
 
     class Meta: 
-        managed = False # this model maps to an existing database table
         db_table = 'Team'
 
     def __str__(self):

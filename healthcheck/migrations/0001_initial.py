@@ -42,6 +42,17 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
+            name='Team',
+            fields=[
+                ('id', models.IntegerField(db_column='TeamID', primary_key=True, serialize=False)),
+                ('name', models.CharField(db_column='TeamName', max_length=50, unique=True)),
+                ('size', models.CharField(db_column='TeamSize', max_length=50)),
+            ],
+            options={
+                'db_table': 'Team',
+            },
+        ),
+        migrations.CreateModel(
             name='VoteLog',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
