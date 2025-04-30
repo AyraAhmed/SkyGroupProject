@@ -22,15 +22,11 @@ from results import views
 #from results.views import senior_manager_results_view  # import it manually
 
 urlpatterns = [
-    path('admin/', admin.site.urls),            # Admin page
-    path('', include('accounts.urls')),  # Include the accounts app URLs here
+    path('admin/', admin.site.urls),
+    path('', include('accounts.urls')),               # For /login/, /register/, etc.
     path('healthcheck/', include('healthcheck.urls')),
     path('results/', include('results.urls')),
-    path('voting/', include('voting.urls')), 
+    path('voting/', include('voting.urls')),
     path('logout/', custom_logout_view, name='logout'),
-    path('api/accounts/', include('accounts.urls')),
-    path('results/', include('results.urls')),  # include results app urls
-    path('senior_manager_results/', views.senior_manager_results_view, name='senior_manager_results'),
-
 ]
 
