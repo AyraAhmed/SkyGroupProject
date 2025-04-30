@@ -1,25 +1,37 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="{% static 'style.css' %}">
-        <title> Home </title>
-    </head>
-    <body>
-        <div class="sidenav">
-            <div class="nav-top">
-                <a href="#">Edit Profile</a>
-            </div>
-        
-            <div class="nav-middle">
-                <a href="#">Health Card</a>
-                <a href="#">View Summary</a>
-                <a href="#">View Progress</a>
-            </div>
-        
-            <div class="nav-bottom">
-                <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
-            </div>
+<head>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title> Home </title>
+</head>
+<body>
+    <div class="sidenav">
+        <div class="nav-top">
+            <a href="{% url 'profile' %}">Edit Profile</a>
         </div>
-    </body>
+    
+        <div class="nav-middle">
+            <a href="{% url 'session_selection' %}">Health Card</a>
+            <a href="{% url 'summary' %}">View Summary</a>
+
+            <!-- View Progress can vary by user type -->
+            {% if user.userprofile.role == 'Engineer' %}
+                <a href="{% url 'engineer_results' %}">View Progress</a>
+            {% elif user.userprofile.role == 'Team Leader' %}
+                <a href="{% url 'team_leader_results' %}">View Progress</a>
+            {% elif user.userprofile.role == 'Department Leader' %}
+                <a href="{% url 'department_leader_results' %}">View Progress</a>
+            {% elif user.userprofile.role == 'Senior Manager' %}
+                <a href="{% url 'senior_manager_results' %}">View Progress</a>
+            {% else %}
+                <a href="#">View Progress</a>  <!-- fallback -->
+            {% endif %}
+        </div>
+    
+        <div class="nav-bottom">
+            <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+        </div>
+    </div>
+</body>
 </html>

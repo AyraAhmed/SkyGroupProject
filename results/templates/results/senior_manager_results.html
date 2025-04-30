@@ -521,16 +521,23 @@ body {
         }
 
         function updateGraph() {
-            const key = `${selectedTeam}-${selectedDepartment}-${selectedProgress}`;
-            const values = dataMap[key];
-            document.getElementById('teamName').innerText = selectedTeam;
-
-            if (!values) {
+    fetch(`/results/get-record-data/?team=${selectedTeam}&department=${selectedDepartment}&progress=${selectedProgress}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const values = [data.data.red, data.data.yellow, data.data.green];
+                drawGraph(values);
+                document.getElementById('teamName').innerText = selectedTeam;
+            } else {
                 alert('No data found for this combination!');
-                return;
             }
-            drawGraph(values);
-        }
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            alert('Error fetching data!');
+        });
+}
+
 
         function logoutUser() {
             alert('Logged out successfully!');

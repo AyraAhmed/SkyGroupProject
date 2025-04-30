@@ -13,3 +13,12 @@ class UserProfile(models.Model):
     
     def __str__(self):
         return self.user.username  #  defining string representation, used in Django Admin
+
+# class Department(models.Model):
+#     department_id = models.AutoField(primary_key=True)  # Matches DepartmentID
+#     department_name = models.CharField(max_length=50, unique=True)  # Matches DepartmentName
+#     number_of_teams = models.CharField(max_length=50)  # Matches NumberOfTeams
+#     user_profile = models.ForeignKey(UserProfile,on_delete=models.SET_NULL,null=True,blank=True)  # Matches UserProfileID
+
+#     def __str__(self):
+#         return self.department_name

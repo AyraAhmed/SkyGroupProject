@@ -22,6 +22,28 @@ def senior_manager_results_view(request):
     return render(request, 'results/senior_manager_results.html')
 
 
+from django.http import JsonResponse
+from .models import Record
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+def get_record_data(request):
+    team = request.GET.get('team')
+    department = request.GET.get('department')
+    progress = request.GET.get('progress')
+
+    try:
+        record = Record.objects.get(team=team, department=department, progress_month=progress)
+        data = {
+            'red': record.red_count,
+            'yellow': record.yellow_count,
+            'green': record.green_count,
+        }
+        return JsonResponse({'success': True, 'data': data})
+    except Record.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'No record found for this combination.'})
+
+
 # import plotly.graph_objs as go
 # from plotly.offline import plot
 
