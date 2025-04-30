@@ -76,20 +76,35 @@ def register_view(request):
     return render(request, 'accounts/register.html')
 
 # View and Update Profile
-@login_required
 def change_password_view(request):
     """
-    Handles the change password functionality.
+    Handles the change password functionality for both logged-in and unauthenticated users.
     """
     if request.method == 'POST':
+        username = request.POST.get('username')  # Optional for unauthenticated users
         current_password = request.POST.get('current_password')
         new_password = request.POST.get('new_password')
         confirm_password = request.POST.get('confirm_password')
 
-        # Validate current password
-        if not request.user.check_password(current_password):
-            messages.error(request, "Current password is incorrect.")
-            return redirect('change-password')
+        # Handle unauthenticated users
+        if not request.user.is_authenticated:
+            try:
+                user = User.objects.get(username=username)
+            except User.DoesNotExist:
+                messages.error(request, "User does not exist.")
+                return redirect('change-password')
+
+            # Validate current password
+            if not user.check_password(current_password):
+                messages.error(request, "Current password is incorrect.")
+                return redirect('change-password')
+
+        # Handle logged-in users
+        else:
+            user = request.user
+            if not user.check_password(current_password):
+                messages.error(request, "Current password is incorrect.")
+                return redirect('change-password')
 
         # Validate new password
         if len(new_password) < 5:
@@ -101,15 +116,15 @@ def change_password_view(request):
             return redirect('change-password')
 
         # Update the password
-        user = request.user
         user.set_password(new_password)
         user.save()
 
-        # Update session to prevent logout after password change
-        update_session_auth_hash(request, user)
+        # Update session for logged-in users
+        if request.user.is_authenticated:
+            update_session_auth_hash(request, user)
 
         messages.success(request, "Your password has been successfully updated.")
-        return redirect('profile')  # Redirect to the profile page or any other page
+        return redirect('login')  # Redirect to the login page
 
     return render(request, 'accounts/change-password.html')
 
