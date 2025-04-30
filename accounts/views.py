@@ -7,6 +7,8 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.auth import login
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import update_session_auth_hash
+from django.contrib import messages
 
 from .serializers import UserProfileSerializer
 
@@ -74,7 +76,41 @@ def register_view(request):
     return render(request, 'accounts/register.html')
 
 # View and Update Profile
+@login_required
 def change_password_view(request):
+    """
+    Handles the change password functionality.
+    """
+    if request.method == 'POST':
+        current_password = request.POST.get('current_password')
+        new_password = request.POST.get('new_password')
+        confirm_password = request.POST.get('confirm_password')
+
+        # Validate current password
+        if not request.user.check_password(current_password):
+            messages.error(request, "Current password is incorrect.")
+            return redirect('change-password')
+
+        # Validate new password
+        if len(new_password) < 5:
+            messages.error(request, "New password must be at least 5 characters long.")
+            return redirect('change-password')
+
+        if new_password != confirm_password:
+            messages.error(request, "New password and confirm password do not match.")
+            return redirect('change-password')
+
+        # Update the password
+        user = request.user
+        user.set_password(new_password)
+        user.save()
+
+        # Update session to prevent logout after password change
+        update_session_auth_hash(request, user)
+
+        messages.success(request, "Your password has been successfully updated.")
+        return redirect('profile')  # Redirect to the profile page or any other page
+
     return render(request, 'accounts/change-password.html')
 
 # view and update user profile (only for logged in users)
@@ -134,4 +170,4 @@ class EditOwnProfileView(generics.RetrieveUpdateAPIView):
 
      # limit access to own profile only 
     def get_object(self):
-         return self.request.user.userprofile 
+         return self.request.user.userprofile
