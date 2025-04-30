@@ -1,0 +1,31 @@
+<h1>{{ role|title }}'s Summary</h1>
+
+<table border="1" style="border-collapse: collapse;">
+  <tr>
+    <th style="padding: 8px;">Health Card</th>
+    <th style="padding: 8px;">Status</th>
+    <th style="padding: 8px;">Feedback</th>
+  </tr>
+  {% for summary in summaries %}
+    <tr>
+      <td style="padding: 8px;">{{ summary.vote_log.health_card.name }}</td>
+      <td style="padding: 8px;">
+        <span style="color:
+          {% if summary.vote_log.status == "Stable" %}
+            green
+          {% elif summary.vote_log.status == "Improving" %}
+            orange
+          {% elif summary.vote_log.status == "Getting worse" %}
+            red
+          {% else %}
+            grey
+          {% endif %}
+        ">
+          ●
+        </span>
+        {{ summary.vote_log.status }}
+      </td>
+      <td style="padding: 8px;">{{ summary.vote_log.comment }}</td>
+    </tr>
+  {% endfor %}
+</table>
