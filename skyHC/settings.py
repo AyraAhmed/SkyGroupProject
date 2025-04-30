@@ -62,7 +62,7 @@ ROOT_URLCONF = 'skyHC.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],  # Add this line to include a global templates folder
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # Add this line to include a global templates folder
         'APP_DIRS': True,  # Enable app-level templates
         'OPTIONS': {
             'context_processors': [
