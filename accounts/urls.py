@@ -1,3 +1,4 @@
+# AUTHOR FOR THIS PAGE AYRA AHMED w1947450
 from django.urls import path
 from . import views  # Import views from the current app
 from .views import EditOwnProfileView # Import the API view for editing profile 

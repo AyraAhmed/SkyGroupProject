@@ -1,3 +1,4 @@
+# AUTHOR OF THIS PAGE AYRA AHMED W1947450
 from django.contrib import admin
 from .models import Team, Session, HealthCard, VoteLog, ViewSummary
 # add models to Django Admin

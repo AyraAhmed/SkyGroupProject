@@ -1,3 +1,4 @@
+# AUTHOR OF THIS PAGE AYRA AHMED W1947450
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from .models import VoteLog, ViewSummary
