@@ -7,7 +7,9 @@ from django.db.models import Sum
 from accounts.models import UserProfile
 from healthcheck.models import ViewSummary, VoteLog, HealthCard
 from datetime import timedelta, date
-
+from django.http import JsonResponse
+from .models import Record
+from django.views.decorators.csrf import csrf_exempt
 
 #html pages for department leader, engineer, senior manager and team leader
 def team_leader_results_view(request):
@@ -22,9 +24,6 @@ def senior_manager_results_view(request):
     return render(request, 'results/senior_manager_results.html')
 
 
-from django.http import JsonResponse
-from .models import Record
-from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 def get_record_data(request):
