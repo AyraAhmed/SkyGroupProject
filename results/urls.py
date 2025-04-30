@@ -1,4 +1,3 @@
-
 from django.urls import path
 from . import views  # Import your views here
 
@@ -12,6 +11,7 @@ urlpatterns = [
     # API view to return JSON chart data 
     path('api/engineer_results/',views.engineer_results_data_view, name= 'engineer_results_data' ),
     path('get-record-data/', views.get_record_data, name='get_record_data'),
+    path('api/team_leader_results/', views.team_leader_results_data_view, name='team_leader_results_data'),
 
 ]
 

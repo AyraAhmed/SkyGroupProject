@@ -1,4 +1,4 @@
-
+from django.shortcuts import render  # For showing your HTML page.
 from django.shortcuts import render  # For showing your HTML page.
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
@@ -140,6 +140,68 @@ def engineer_results_data_view(request):
         "view_type": view_type,
         "healthcard": healthcard_name,
         "quarter": timeframe_clean, 
+        "data": formatted
+    })
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def team_leader_results_data_view(request):
+    """
+    API endpoint to fetch team leader results data based on filters.
+    """
+    user_profile = request.user.userprofile
+
+    # Get filters from the request
+    team_name = request.GET.get('team')
+    healthcard_name = request.GET.get('healthcard')
+    timeframe = request.GET.get('quarter')
+
+    # Validate filters
+    if not team_name or not healthcard_name or not timeframe:
+        return Response({
+            "error": "Missing filters. Please select team, healthcard, and time frame."
+        }, status=400)
+
+    # Convert timeframe into a date range
+    timeframe_clean = timeframe.replace("Progress over ", "").strip().lower()
+    if timeframe_clean == "3 months":
+        cutoff_date = date.today() - timedelta(days=90)
+    elif timeframe_clean == "6 months":
+        cutoff_date = date.today() - timedelta(days=180)
+    elif timeframe_clean == "9 months":
+        cutoff_date = date.today() - timedelta(days=270)
+    else:
+        return Response({"error": "Invalid timeframe selected."}, status=400)
+
+    # Get the selected HealthCard
+    try:
+        healthcard = HealthCard.objects.get(name=healthcard_name)
+    except HealthCard.DoesNotExist:
+        return Response({"error": "Invalid healthcard selected."}, status=400)
+
+    # Filter ViewSummary records based on healthcard, timeframe, and team
+    view_summaries = ViewSummary.objects.filter(
+        vote_log__health_card=healthcard,
+        view_date__gte=cutoff_date,
+        vote_log__user_profile__team__name=team_name
+    )
+
+    # Sum progress grouped by vote status
+    progress_data = view_summaries.values('vote_log__status').annotate(total_progress=Sum('progress'))
+
+    # Format the data for JSON response
+    formatted = []
+    for entry in progress_data:
+        formatted.append({
+            "status": entry['vote_log__status'],
+            "progress": entry['total_progress']
+        })
+
+    # Return the full data for the chart
+    return Response({
+        "team": team_name,
+        "healthcard": healthcard_name,
+        "quarter": timeframe_clean,
         "data": formatted
     })
 
