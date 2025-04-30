@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +19,7 @@ margin-bottom: 2%;
 margin-left: 2%;
 margin-right: 2%;
 width: 250px;
-background-color: #1B609F;
+background:linear-gradient(to bottom, #FF9A28, #FF6AA0, #FF491C, #F9009F, #C800D6, #8D03F2, #2D40FD, #668EFF);
 padding: 20px;
 display: flex;
 flex-direction: column;
@@ -54,8 +55,8 @@ border-radius: 5px;
 box-sizing: border-box;
 }
 .nav-links a.active {
-border: 2px solid #78A446;
-background-color: #78A446;
+border: 2px solid #FF6AA0;
+background-color: #FF6AA0;
 border-radius: 10px;
 font-weight: bold;
 font-size: 19px;
@@ -64,7 +65,7 @@ font-size: 19px;
 background-color: rgba(42, 88, 214, 0.2);
 }
 .logout-btn {
-background-color: #78A446;
+background-color: #FF6AA0;
 color: white;
 width: 60%;
 padding: 10px;
@@ -105,7 +106,7 @@ position: relative;
 display: inline-block;
 }
 .dropdown button {
-background-color: #2E5A94;
+background-color: #FF6AA0;
 color: white;
 padding: 10px 20px;
 border: none;
@@ -151,76 +152,118 @@ display: block;
 </style>
 </head>
 <body>
-<div class="sidebar">
-<img src="image/Navicon.jpeg" alt="Navicon">
-<a href="editProfile.html" style="color: white;text-decoration: none;">Edit Profile</a>
-<br><br><br>
-<div class="nav-links">
-<a href="departmentLeaderHome.html">Home</a>
-<a href="#">Profile</a>
-<a href="#" class="active">View Progress</a>
-</div>
-<button class="logout-btn">Log Out</button>
-</div>
-<div class="content">
-<div class="view-progress" onclick="validateSelection()">View Progress</div>
-<br>
-<div class="dropdown-container">
-<div class="dropdown">
-<button id="teamButton">Select Team</button>
-<div class="dropdown-content">
-<a href="#" onclick="selectTeam('Team Alpha')">Team Alpha</a>
-<a href="#" onclick="selectTeam('Team Beta')">Team Beta</a>
-<a href="#" onclick="selectTeam('Team Gamma')">Team Gamma</a>
-</div>
-</div>
-<div class="dropdown">
-<button id="departmentButton">Department</button>
-<div class="dropdown-content">
-<a href="#" onclick="selectDepartment('Department 1')">Department 1</a>
-<a href="#" onclick="selectDepartment('Department 2')">Department 2</a>
-</div>
-</div>
-<div class="dropdown">
-<button id="healthcardButton">Healthcards</button>
-<div class="dropdown-content">
-<a href="#" onclick="selectHealthcards('Delivery value')">Delivery value</a>
-<a href="#" onclick="selectHealthcards('Easy to release')">Easy to release</a>
-</div>
-</div>
-<div class="dropdown">
-<button id="progressButton">Progress over time</button>
-<div class="dropdown-content">
-<a href="#" onclick="selectProgress('Progress after 3 Months')">Progress after 3 Months</a>
-<a href="#" onclick="selectProgress('Progress after 6 Months')">Progress after 6 Months</a>
-</div>
-</div>
-</div>
-</div>
-<script>
-function selectTeam(teamName) {
-document.getElementById("teamButton").innerText = teamName;
-}
-function selectDepartment(department) {
-document.getElementById("departmentButton").innerText = department;
-}
-function selectHealthcards(healthcard) {
-document.getElementById("healthcardButton").innerText = healthcard;
-}
-function selectProgress(progress) {
-document.getElementById("progressButton").innerText = progress;
-}
-function validateSelection() {
-let team = document.getElementById("teamButton").innerText;
-let department = document.getElementById("departmentButton").innerText;
-let healthcard = document.getElementById("healthcardButton").innerText;
-let progress = document.getElementById("progressButton").innerText;
-if (team === "Select Team" || department === "Department" || healthcard === "Healthcards" || progress === "Progress over time") {
-alert("Please select all dropdowns before proceeding.");
-} else {
-alert("All selections made! Proceeding...");
-}
-}
-</script>
-</body>
-</html>
+    <div class="sidebar">
+      <img src="/static/Navicon.png" alt="Navicon">
+      <a href="editProfile.html" style="color: white;text-decoration: none;">Edit Profile</a>
+      <br><br><br>
+      <div class="nav-links">
+        <a href="departmentLeaderHome.html">Home</a>
+        <a href="#">Profile</a>
+        <a href="#" class="active">View Progress</a>
+      </div>
+      <button class="logout-btn">Log Out</button>
+    </div>
+    
+    <div class="content">
+      <form method="POST" id="progressForm">
+        {% csrf_token %}
+    
+        <!-- Hidden inputs for actual form submission -->
+        <input type="hidden" name="team" id="teamInput">
+        <input type="hidden" name="department" id="departmentInput">
+        <input type="hidden" name="healthcard" id="healthcardInput">
+        <input type="hidden" name="progress" id="progressInput">
+    
+        <div class="dropdown-container">
+          <div class="dropdown">
+            <button type="button" id="teamButton">Select Team</button>
+            <div class="dropdown-content">
+              <a href="#" onclick="selectTeam('Team Alpha')">Team Alpha</a>
+              <a href="#" onclick="selectTeam('Team Beta')">Team Beta</a>
+              <a href="#" onclick="selectTeam('Team Gamma')">Team Gamma</a>
+            </div>
+          </div>
+    
+          <div class="dropdown">
+            <button type="button" id="departmentButton">Department</button>
+            <div class="dropdown-content">
+              <a href="#" onclick="selectDepartment('Department 1')">Department 1</a>
+              <a href="#" onclick="selectDepartment('Department 2')">Department 2</a>
+            </div>
+          </div>
+    
+          <div class="dropdown">
+            <button type="button" id="healthcardButton">Healthcards</button>
+            <div class="dropdown-content">
+              <a href="#" onclick="selectHealthcards('Delivery value')">Delivery value</a>
+              <a href="#" onclick="selectHealthcards('Easy to release')">Easy to release</a>
+              <a href="#" onclick="selectHealthcards('fun')">fun</a>
+              <a href="#" onclick="selectHealthcards('health of codebase')">health of codebase</a>
+              <a href="#" onclick="selectHealthcards('learning')">learning</a>
+              <a href="#" onclick="selectHealthcards('mision')">mision</a>
+              <a href="#" onclick="selectHealthcards('pawns or players')">pawns or players</a>
+              <a href="#" onclick="selectHealthcards('speed')">speed</a>
+              <a href="#" onclick="selectHealthcards('suitable process')">suitable process</a>
+              <a href="#" onclick="selectHealthcards('support')">support</a>
+              <a href="#" onclick="selectHealthcards('teamwork')">teamwork</a>
+              <a href="#" onclick="selectHealthcards('work life')">work life</a>
+            </div>
+          </div>
+    
+          <div class="dropdown">
+            <button type="button" id="progressButton">Progress over time</button>
+            <div class="dropdown-content">
+              <a href="#" onclick="selectProgress(3)">Progress after 3 Months</a>
+              <a href="#" onclick="selectProgress(6)">Progress after 6 Months</a>
+              <a href="#" onclick="selectProgress(9)">Progress after 9 Months</a>
+            </div>
+          </div>
+        </div>
+    
+        <button type="button" class="view-progress" onclick="validateAndSubmit()">View Progress</button>
+      </form>
+    
+      {% if chart %}
+        <div style="margin-top: 40px;">
+          <h2>{{ selected_team }} - {{ selected_department }}</h2>
+          <img src="{{ chart|safe }}" alt="Progress Chart">
+        </div>
+      {% endif %}
+    </div>
+    
+    <script>
+      function selectTeam(name) {
+        document.getElementById("teamButton").innerText = name;
+        document.getElementById("teamInput").value = name;
+      }
+    
+      function selectDepartment(name) {
+        document.getElementById("departmentButton").innerText = name;
+        document.getElementById("departmentInput").value = name;
+      }
+    
+      function selectHealthcards(name) {
+        document.getElementById("healthcardButton").innerText = name;
+        document.getElementById("healthcardInput").value = name;
+      }
+    
+      function selectProgress(value) {
+        document.getElementById("progressButton").innerText = "Progress after " + value + " Months";
+        document.getElementById("progressInput").value = value;
+      }
+    
+      function validateAndSubmit() {
+        let team = document.getElementById("teamInput").value;
+        let dept = document.getElementById("departmentInput").value;
+        let health = document.getElementById("healthcardInput").value;
+        let progress = document.getElementById("progressInput").value;
+    
+        if (!team || !dept || !health || !progress) {
+          alert("Please select all options.");
+        } else {
+          document.getElementById("progressForm").submit();
+        }
+      }
+    </script>
+    </body>
+    </html>

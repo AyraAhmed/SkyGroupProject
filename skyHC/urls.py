@@ -23,6 +23,7 @@ urlpatterns = [
     path('healthcheck/', include('healthcheck.urls')),
     path('results/', include('results.urls')),
     path('voting/', include('voting.urls')), 
+     
     
 ]
 
