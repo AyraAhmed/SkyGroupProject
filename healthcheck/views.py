@@ -1,3 +1,4 @@
+# AUTHOR OF THIS PAGE AYRA AHMED W1947450
 from django.shortcuts import render
 from .models import ViewSummary 
 from accounts.models import UserProfile

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title> <!-- No title -->
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+<iframe id="pageFrame" src="/static/frontend.html/deliveryvalue.html"></iframe> <!-- Your first page -->
+
+<script>
+  const pages = [
+    "/static/frontend.html/deliveryvalue.html",
+    "/static/frontend.html/easytorelease.html",
+    "/static/frontend.html/healthofcodebase.html",
+    "/static/frontend.html/learning.html",
+    "/static/frontend.html/fun.html",
+    "/static/frontend.html/mision.html",
+    "/static/frontend.html/pawnsorplayers.html",
+    "/static/frontend.html/support.html",
+    "/static/frontend.html/suitableprocess.html",
+    "/static/frontend.html/speed.html",
+    "/static/frontend.html/teamwork.html",
+    "/static/frontend.html/worklife.html",
+    "/static/frontend.html/Thankyou.html",
+  ];
+
+  let currentPage = 0;
+  const frame = document.getElementById('pageFrame');
+
+  window.addEventListener('message', function(event) {
+    if (event.data === 'next') {
+      if (currentPage < pages.length - 1) {
+        currentPage++;
+        frame.src = pages[currentPage];
+      }
+    }
+    if (event.data === 'previous') {
+      if (currentPage > 0) {
+        currentPage--;
+        frame.src = pages[currentPage];
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

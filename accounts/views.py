@@ -1,3 +1,7 @@
+# AUTHOR for profile_view and edit_profile_view = AYRA AHMED w1947450
+# AUTHOR for login_view and register_view = NILAM SHINDE w1965991
+# AUTHOR for change_password_view = VARANYA SALUJA w2029356
+
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
@@ -152,7 +156,7 @@ def profile_view(request):
 
     return render(request, 'accounts/profile.html', {'profile': profile})
 
-# Edit Profile Page (Separate view)
+# Edit Profile Page (Separate view) 
 @login_required
 def edit_profile_view(request):
     profile = request.user.userprofile

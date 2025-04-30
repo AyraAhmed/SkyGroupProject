@@ -1,3 +1,4 @@
+# AUTHOR OF THIS PAGE AYRA AHMED W1947450
 from django.urls import path
 from . import views  # Import views from the current app
 
