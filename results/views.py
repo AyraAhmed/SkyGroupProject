@@ -15,7 +15,7 @@ def team_leader_results_view(request):
 def engineer_results_view(request):
     return render(request, 'results/engineer_results.html')
 
-# Department Leader View (this is the new view with matplotlib)
+
 def department_leader_results_view(request):
     context = {}
 
@@ -33,13 +33,13 @@ def department_leader_results_view(request):
                 progress_month=int(progress)
             )
 
-            # Count traffic signals
+           
             data = {'Red': 0, 'Yellow': 0, 'Green': 0}
             for result in results:
                 if result.traffic_signal in data:
                     data[result.traffic_signal] += result.count
 
-            # Plot with matplotlib
+           
             labels = list(data.keys())
             values = list(data.values())
             plt.figure(figsize=(6, 4))
